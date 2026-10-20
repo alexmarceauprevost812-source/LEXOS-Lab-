@@ -14,9 +14,12 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      # Ubuntu GitHub runners already include Android SDK command-line tools.
+      - name: Configure Android SDK tools
+        uses: android-actions/setup-android@v3
+        with:
+          packages: ""
       - name: Install Android SDK 35
-        run: yes | sdkmanager "platforms;android-35" "build-tools;35.0.0" || test ${PIPESTATUS[1]} -eq 0
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
       - name: Install Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
